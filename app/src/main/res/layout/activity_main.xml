@@ -26,4 +26,12 @@
         tools:layout_editor_absoluteX="158dp"
         tools:layout_editor_absoluteY="364dp" />
 
+    <Button
+        android:id="@+id/Tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="설명"
+        tools:layout_editor_absoluteX="158dp"
+        tools:layout_editor_absoluteY="510dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
