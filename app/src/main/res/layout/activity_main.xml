@@ -23,15 +23,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="게임시작"
-        tools:layout_editor_absoluteX="158dp"
-        tools:layout_editor_absoluteY="364dp" />
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.636" />
 
     <Button
-        android:id="@+id/Tip"
+        android:id="@+id/Rule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="설명"
-        tools:layout_editor_absoluteX="158dp"
-        tools:layout_editor_absoluteY="510dp" />
+        android:text="게임설명"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.891" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFirstApp">
         <activity
+            android:name=".RuleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TipActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
