@@ -24,6 +24,7 @@ class DifficultyActivity : AppCompatActivity() {
         normalButton=findViewById(R.id.normal_button)
         normalButton.setOnClickListener{
             startActivity(normalIntent)
+            finish()
         }
 
     }

@@ -29,6 +29,8 @@
         android:layout_height="34dp"
         android:text=" 0 : 0 : 0 "
         android:textSize="20dp"
+        android:textAlignment="center"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.907"
@@ -36,6 +38,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.065" />
 
+    <!-- 타이머 정지 버튼.
     <Button
         android:id="@+id/time_stop"
         android:layout_width="75dp"
@@ -50,6 +53,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.052" />
+        -->
 
     <ImageButton
         android:id="@+id/imageButton1"
@@ -258,6 +262,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.95"
         app:srcCompat="@drawable/card_back" />
+
+    <TextView
+        android:id="@+id/try_chance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="기회 X 3"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.073" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
