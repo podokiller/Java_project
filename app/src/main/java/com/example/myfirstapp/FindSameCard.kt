@@ -1,10 +1,12 @@
 package com.example.myfirstapp
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
@@ -50,9 +52,32 @@ class FindSameCard : AppCompatActivity() {
     lateinit var startButton: Button
     lateinit var stopButton: Button     // 시간 정지 버튼. 임시 버튼이고 후에 게임 클리어 하면 멈추게 변경.
 
+    var diff = 0                        // 난이도.
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_find_same_card)
+
+        // 난이도. 0 이면 easy, 1 이면 normal, 2 면 hard
+        val diffIntent = getIntent()
+        // DifficultyActivity 에서 넘긴 난이도 받아옴.
+        diff = diffIntent.getIntExtra("DIFFICULTY", 0)
+
+        // 기회 텍스트 뷰.
+        lateinit var tryChance : TextView
+        tryChance=findViewById(R.id.try_chance)
+
+        // 하드 난이도에서 기회는 단 한 번.
+        if(diff == 2) {
+            failNum = 2
+            tryChance.setText("기회 X 1")
+        }
+        // 이지 난이도에서 기회 제한 없음.
+        else if (diff == 0) {
+            //tryChance.setVisibility(View.INVISIBLE)
+            tryChance.setText("기회 X ∞")
+        }
+
 
         // 카드 리스트에 drawable 파일 넣어줌.
         cardList.add(R.drawable.pororo)
@@ -75,7 +100,7 @@ class FindSameCard : AppCompatActivity() {
         //
 
         // 카드 셔플해서 그때그때 위치 달라지게 함.
-        // cardList= cardList.shuffled() as ArrayList<Int>
+        cardList= cardList.shuffled() as ArrayList<Int>
 
         // 변수 초기값 설정.
         cardID1=findViewById(R.id.imageButton1)
@@ -115,12 +140,9 @@ class FindSameCard : AppCompatActivity() {
         closedCard.add(cardID16)
         //
 
-
         // 게임 시작 전 카드 터치 못함.
         beforeStartCantTouch()
 
-        // 임시로 카드리스트의 인덱스 정해서 넣어주지만, 후에 cardList 랜덤인덱스 받아서 넣어줄 것
-        // 아니면 리스트 셔플해도 될듯.
         // 카드 클릭 시 이미지 변경. -> 앞면 보여주는 것.
         cardID1.setOnClickListener {
             cardID1.setImageResource(cardList[0])
@@ -206,6 +228,10 @@ class FindSameCard : AppCompatActivity() {
         // 게임 시작 버튼 클릭 시 타이머 시작.    후에 게임 진행되는 함수도 만들 예정.
         startButton=findViewById(R.id.game_start)
         startButton.setOnClickListener {
+            // 시작 버튼 클릭 시 다시 클릭 못하게 막음.
+            startButton.setEnabled(false)
+            startButton.setTextColor(Color.parseColor("#808080"))
+
             // 시작 버튼 클릭 시 앞면 잠시 보여줌.
             cardID1.setImageResource(cardList[0])
             cardID2.setImageResource(cardList[1])
@@ -231,7 +257,7 @@ class FindSameCard : AppCompatActivity() {
                 closedCardCanTouch()
                 // 뒤집어지고 타이머 시작.
                 startTimer()
-            },1000)
+            },2000)
 
         }
 
@@ -328,14 +354,15 @@ class FindSameCard : AppCompatActivity() {
         // endActivity 에 보낼 변수. 시간 기록.
         val endIntent = Intent(this, EndActivity::class.java)
         endIntent.putExtra("TIME", time)
+        endIntent.putExtra("DIFFICULTY", diff)
 
         // 기회 0 이 되어 실패한 경우 이동할 액티비티.
         val failIntent = Intent(this, GameOverActivity::class.java)
+        failIntent.putExtra("DIFFICULTY", diff)
 
         if (ID == ID2) {    // 짝 맞춘 경우.
             openedCard.add(cardID)
             openedCard.add(nextCardID)
-            //openedCardCantTouch()
 
             closedCard.remove(cardID)
             closedCard.remove(nextCardID)
@@ -354,8 +381,9 @@ class FindSameCard : AppCompatActivity() {
         }
 
         else if (ID != ID2) {
-            failNum += 1
-            println(failNum)
+            if(diff != 0) {     // easy 난이도는 기회 무제한.
+                failNum += 1
+            }
             when (failNum) {
                 1 -> tryChance.setText("기회 X 2")
                 2 -> tryChance.setText("기회 X 1")
@@ -396,13 +424,6 @@ class FindSameCard : AppCompatActivity() {
         }
     }
 
-    /*
-    private fun openedCardCantTouch() {
-        for(i in openedCard.indices) {
-            openedCard[i].setEnabled(false)
-        }
-    }
-    */
 
     // 카드를 다시 뒤집으면 터치할 수 있도록 함.
     private fun closedCardCanTouch() {

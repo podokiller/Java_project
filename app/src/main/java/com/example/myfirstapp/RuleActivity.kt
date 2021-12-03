@@ -11,14 +11,11 @@ class RuleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rule)
 
-        //var intent = Intent(this, MainActivity::class.java)
-
         // 닫기 버튼 누르면 액티비티 종료.
         closeButton=findViewById(R.id.close_button)
         closeButton.setOnClickListener {
             finish()
         }
-
 
     }
 
