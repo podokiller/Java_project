@@ -75,7 +75,7 @@ class FindSameCard : AppCompatActivity() {
         //
 
         // 카드 셔플해서 그때그때 위치 달라지게 함.
-        cardList= cardList.shuffled() as ArrayList<Int>
+        // cardList= cardList.shuffled() as ArrayList<Int>
 
         // 변수 초기값 설정.
         cardID1=findViewById(R.id.imageButton1)

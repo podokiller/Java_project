@@ -20,6 +20,7 @@ class GameOverActivity : AppCompatActivity() {
             finish()
         }
 
+        // 재도전 버튼.
         lateinit var reTryButton: Button
 
         val reTryIntent = Intent(this, FindSameCard::class.java)
